@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Urheberrecht in der digitalen Zeit</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, rgba(30, 144, 255, 0.9), rgba(0, 123, 255, 0.9)),
+                        url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400"><rect fill="%23f0f0f0" width="1200" height="400"/><path d="M100 200 Q 300 100 500 200 T 900 200" stroke="%23ddd" stroke-width="2" fill="none"/></svg>');
+            background-size: cover;
+            color: white;
+            padding: 60px 40px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-bottom: 40px;
+            animation: fadeIn 1s ease-in;
+        }
+
+        .header h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.3em;
+            opacity: 0.95;
+        }
+
+        /* Content Cards */
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            animation: slideUp 0.8s ease-out;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+        }
+
+        .card h2 {
+            color: #1e90ff;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card h2::before {
+            content: "📚";
+            font-size: 1.2em;
+        }
+
+        /* Info Box */
+        .info-box {
+            background: #f0f8ff;
+            border-left: 4px solid #1e90ff;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .info-box:hover {
+            background: #e1f2ff;
+            transform: translateX(5px);
+        }
+
+        .info-box-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+            margin-top: 10px;
+        }
+
+        .info-box-content.active {
+            max-height: 300px;
+        }
+
+        /* Icon List */
+        .icon-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .icon-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            background: #f9f9f9;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .icon-item:hover {
+            background: #ff6b35;
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .icon-item .icon {
+            font-size: 2em;
+            min-width: 50px;
+            text-align: center;
+        }
+
+        /* Drag and Drop */
+        .drag-drop-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 30px 0;
+        }
+
+        .drop-zone {
+            min-height: 200px;
+            border: 3px dashed #ccc;
+            border-radius: 10px;
+            padding: 20px;
+            background: #f9f9f9;
+            transition: all 0.3s ease;
+        }
+
+        .drop-zone.drag-over {
+            background: #e8f5e9;
+            border-color: #4caf50;
+        }
+
+        .drop-zone h3 {
+            margin-bottom: 15px;
+            color: #666;
+        }
+
+        .draggable-item {
+            background: white;
+            padding: 10px 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            cursor: move;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .draggable-item:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        .draggable-item.dragging {
+            opacity: 0.5;
+        }
+
+        /* Comparison Slider */
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 30px 0;
+        }
+
+        .comparison-item {
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .comparison-item:hover {
+            transform: scale(1.05);
+        }
+
+        .comparison-item h3 {
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        /* Problem Icons */
+        .problem-icons {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .problem-icon {
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+
+        .problem-icon:hover {
+            transform: scale(1.1);
+        }
+
+        .problem-icon .icon {
+            font-size: 3em;
+            margin-bottom: 10px;
+        }
+
+        .tooltip {
+            position: absolute;
+            bottom: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #333;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 5px;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            z-index: 10;
+        }
+
+        .problem-icon:hover .tooltip {
+            opacity: 1;
+        }
+
+        /* Importance Cards */
+        .importance-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .importance-card {
+            background: linear-gradient(135deg, #ff6b35 0%, #ff9558 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .importance-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(255, 107, 53, 0.3);
+        }
+
+        .importance-card h3 {
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+
+        .importance-card .details {
+            position: absolute;
+            bottom: -100%;
+            left: 0;
+            right: 0;
+            background: rgba(0,0,0,0.8);
+            padding: 15px;
+            transition: bottom 0.3s ease;
+        }
+
+        .importance-card:hover .details {
+            bottom: 0;
+        }
+
+        /* Quiz */
+        .quiz-container {
+            background: #f0f8ff;
+            padding: 30px;
+            border-radius: 10px;
+            margin: 30px 0;
+        }
+
+        .quiz-question {
+            margin-bottom: 25px;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .quiz-question h3 {
+            margin-bottom: 15px;
+            color: #1e90ff;
+        }
+
+        .quiz-options {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .quiz-btn {
+            padding: 10px 20px;
+            background: #1e90ff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1em;
+        }
+
+        .quiz-btn:hover {
+            background: #1876d2;
+            transform: translateY(-2px);
+        }
+
+        .quiz-btn.correct {
+            background: #4caf50;
+        }
+
+        .quiz-btn.incorrect {
+            background: #f44336;
+        }
+
+        .feedback {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            display: none;
+        }
+
+        .feedback.show {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        .feedback.correct {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .feedback.incorrect {
+            background: #ffebee;
+            color: #c62828;
+        }
+
+        /* CTA Button */
+        .cta-button {
+            display: inline-block;
+            padding: 15px 40px;
+            background: linear-gradient(135deg, #ff6b35 0%, #ff9558 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.1em;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(255, 107, 53, 0.3);
+            margin: 20px 0;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(255, 107, 53, 0.4);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideDown {
+            from { 
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .comparison {
+                grid-template-columns: 1fr;
+            }
+            
+            .drag-drop-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .quiz-options {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>Urheberrecht in der digitalen Zeit</h1>
+            <p>Kurz erklärt – interaktiv erlebt</p>
+        </div>
+
+        <!-- Einleitung -->
+        <div class="card">
+            <h2>Was ist Urheberrecht?</h2>
+            <p>Urheberrecht schützt geistige Schöpfungen – Werke, die von einer Person geschaffen wurden und eine gewisse Individualität aufweisen. In der Schweiz gilt: Ein Werk ist automatisch geschützt, sobald es geschaffen wird – keine Registrierung nötig.</p>
+            
+            <div class="info-box" onclick="toggleInfo(this)">
+                <strong>📖 Mehr erfahren</strong>
+                <div class="info-box-content">
+                    <p><strong>Definition:</strong> Das Urheberrecht schützt Werke der Literatur und Kunst mit individuellem Charakter.</p>
+                    <p><strong>Beispiele:</strong> Texte, Musik, Bilder, Filme, Computerprogramme, Fotografien, Architektur</p>
+                    <p><strong>Dauer:</strong> In der Schweiz 70 Jahre nach dem Tod des Urhebers</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Voraussetzungen -->
+        <div class="card">
+            <h2>Voraussetzungen für den Schutz</h2>
+            <div class="icon-list">
+                <div class="icon-item">
+                    <div class="icon">🎨</div>
+                    <div>
+                        <strong>Werkcharakter</strong><br>
+                        Persönliche geistige Schöpfung
+                    </div>
+                </div>
+                <div class="icon-item">
+                    <div class="icon">💡</div>
+                    <div>
+                        <strong>Originalität</strong><br>
+                        Individuelle Gestaltung
+                    </div>
+                </div>
+                <div class="icon-item">
+                    <div class="icon">📝</div>
+                    <div>
+                        <strong>Form</strong><br>
+                        In wahrnehmbarer Form vorhanden
+                    </div>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 30px; color: #1e90ff;">Interaktive Übung: Geschützt oder nicht?</h3>
+            <p style="margin-bottom: 20px;">Ziehen Sie die Beispiele in die richtige Kategorie:</p>
+            
+            <div id="drag-items" style="margin-bottom: 20px;">
+                <div class="draggable-item" draggable="true" data-correct="true">📷 Künstlerische Fotografie</div>
+                <div class="draggable-item" draggable="true" data-correct="false">💡 Blosse Idee für ein Buch</div>
+                <div class="draggable-item" draggable="true" data-correct="true">🎵 Selbstkomponiertes Lied</div>
+                <div class="draggable-item" draggable="true" data-correct="false">📊 Einfache Tabelle</div>
+                <div class="draggable-item" draggable="true" data-correct="true">🎨 Digitales Kunstwerk</div>
+            </div>
+
+            <div class="drag-drop-container">
+                <div class="drop-zone" id="protected">
+                    <h3>✅ Geschützt</h3>
+                </div>
+                <div class="drop-zone" id="not-protected">
+                    <h3>❌ Nicht geschützt</h3>
+                </div>
+            </div>
+        </div>
+
+        <!-- Probleme im digitalen Zeitalter -->
+        <div class="card">
+            <h2>Probleme im digitalen Zeitalter</h2>
+            
+            <div class="comparison">
+                <div class="comparison-item">
+                    <h3>📼 Früher</h3>
+                    <ul>
+                        <li>Kopieren war aufwendig</li>
+                        <li>Quellen oft klar erkennbar</li>
+                        <li>Physische Verbreitung</li>
+                        <li>Langsame Verbreitung</li>
+                    </ul>
+                </div>
+                <div class="comparison-item">
+                    <h3>💻 Heute</h3>
+                    <ul>
+                        <li>Kopieren in Sekunden</li>
+                        <li>Inhalte leicht veränderbar</li>
+                        <li>KI als neuer Faktor</li>
+                        <li>Virale Verbreitung möglich</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="problem-icons">
+                <div class="problem-icon">
+                    <div class="icon">😂</div>
+                    <div>Memes</div>
+                    <span class="tooltip">Oft urheberrechtlich geschütztes Material</span>
+                </div>
+                <div class="problem-icon">
+                    <div class="icon">🤖</div>
+                    <div>KI-Bilder</div>
+                    <span class="tooltip">Ungeklärte Rechtslage bei Training und Output</span>
+                </div>
+                <div class="problem-icon">
+                    <div class="icon">📱</div>
+                    <div>Social Media</div>
+                    <span class="tooltip">Schnelle Verbreitung ohne Kontrolle</span>
+                </div>
+                <div class="problem-icon">
+                    <div class="icon">🎮</div>
+                    <div>Gaming Content</div>
+                    <span class="tooltip">Streams und Let's Plays in Grauzone</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Warum das wichtig ist -->
+        <div class="card">
+            <h2>Warum ist das wichtig?</h2>
+            
+            <div class="importance-grid">
+                <div class="importance-card">
+                    <h3>⚖️ Rechtliche Folgen</h3>
+                    <div class="details">
+                        Abmahnungen, Schadensersatz, Unterlassungserklärungen
+                    </div>
+                </div>
+                <div class="importance-card">
+                    <h3>🤝 Ethische Aspekte</h3>
+                    <div class="details">
+                        Respekt vor kreativer Arbeit, faire Vergütung
+                    </div>
+                </div>
+                <div class="importance-card">
+                    <h3>🛡️ Eigene Rechte</h3>
+                    <div class="details">
+                        Schutz eigener Werke, Lizenzierung, Verwertung
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quiz -->
+        <div class="card">
+            <h2>Mini-Quiz: Testen Sie Ihr Wissen!</h2>
+            
+            <div class="quiz-container">
+                <div class="quiz-question">
+                    <h3>1. Ein Bild aus dem Internet als Profilbild nutzen – erlaubt?</h3>
+                    <div class="quiz-options">
+                        <button class="quiz-btn" onclick="checkAnswer(this, false, 'q1')">Ja, immer</button>
+                        <button class="quiz-btn" onclick="checkAnswer(this, true, 'q1')">Nein, nur mit Erlaubnis</button>
+                    </div>
+                    <div class="feedback" id="feedback-q1"></div>
+                </div>
+
+                <div class="quiz-question">
+                    <h3>2. Ein KI-generiertes Bild auf Instagram posten – erlaubt?</h3>
+                    <div class="quiz-options">
+                        <button class="quiz-btn" onclick="checkAnswer(this, true, 'q2')">Meist ja</button>
+                        <button class="quiz-btn" onclick="checkAnswer(this, false, 'q2')">Immer verboten</button>
+                    </div>
+                    <div class="feedback" id="feedback-q2"></div>
+                </div>
+
+                <div class="quiz-question">
+                    <h3>3. Einen Songtext in einem Blog zitieren – erlaubt?</h3>
+                    <div class="quiz-options">
+                        <button class="quiz-btn" onclick="checkAnswer(this, true, 'q3')">Kurze Zitate sind ok</button>
+                        <button class="quiz-btn" onclick="checkAnswer(this, false, 'q3')">Nie erlaubt</button>
+                    </div>
+                    <div class="feedback" id="feedback-q3"></div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <script>
+        // Toggle Info Box
+        function toggleInfo(element) {
+            const content = element.querySelector('.info-box-content');
+            content.classList.toggle('active');
+        }
+
+        // Quiz Functionality
+        function checkAnswer(button, isCorrect, questionId) {
+            const buttons = button.parentElement.querySelectorAll('.quiz-btn');
+            buttons.forEach(btn => {
+                btn.disabled = true;
+                btn.style.opacity = '0.6';
+            });
+            
+            button.style.opacity = '1';
+            button.classList.add(isCorrect ? 'correct' : 'incorrect');
+            
+            const feedback = document.getElementById('feedback-' + questionId);
+            feedback.classList.add('show', isCorrect ? 'correct' : 'incorrect');
+            
+            const feedbackTexts = {
+                'q1': {
+                    correct: '✅ Richtig! Bilder aus dem Internet sind meist urheberrechtlich geschützt.',
+                    incorrect: '❌ Falsch. Bilder sind meist urheberrechtlich geschützt und dürfen nicht ohne Erlaubnis verwendet werden.'
+                },
+                'q2': {
+                    correct: '✅ Richtig! KI-generierte Bilder können meist frei verwendet werden, aber Vorsicht bei den Trainingsdaten.',
+                    incorrect: '❌ Falsch. KI-generierte Bilder sind meist verwendbar, solange keine geschützten Werke kopiert werden.'
+                },
+                'q3': {
+                    correct: '✅ Richtig! Kurze Zitate sind unter bestimmten Bedingungen (Quellenangabe, Zitatumfang) erlaubt.',
+                    incorrect: '❌ Falsch. Kurze Zitate sind im Rahmen des Zitatrechts durchaus erlaubt.'
+                }
+            };
+            
+            feedback.textContent = isCorrect ? feedbackTexts[questionId].correct : feedbackTexts[questionId].incorrect;
+        }
+
+        // Drag and Drop Functionality
+        let draggedItem = null;
+
+        document.querySelectorAll('.draggable-item').forEach(item => {
+            item.addEventListener('dragstart', function(e) {
+                draggedItem = this;
+                this.classList.add('dragging');
+            });
+
+            item.addEventListener('dragend', function(e) {
+                this.classList.remove('dragging');
+            });
+        });
+
+        document.querySelectorAll('.drop-zone').forEach(zone => {
+            zone.addEventListener('dragover', function(e) {
+                e.preventDefault();
+                this.classList.add('drag-over');
+            });
+
+            zone.addEventListener('dragleave', function(e) {
+                this.classList.remove('drag-over');
+            });
+
+            zone.addEventListener('drop', function(e) {
+                e.preventDefault();
+                this.classList.remove('drag-over');
+                
+                if (draggedItem) {
+                    const isCorrect = draggedItem.dataset.correct === 'true';
+                    const isProtectedZone = this.id === 'protected';
+                    
+                    this.appendChild(draggedItem);
+                    
+                    // Visual feedback
+                    if ((isCorrect && isProtectedZone) || (!isCorrect && !isProtectedZone)) {
+                        draggedItem.style.background = '#e8f5e9';
+                        draggedItem.style.color = '#2e7d32';
+                    } else {
+                        draggedItem.style.background = '#ffebee';
+                        draggedItem.style.color = '#c62828';
+                    }
+                    
+                    draggedItem = null;
+                }
+            });
+        });
+
+        // Add smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
