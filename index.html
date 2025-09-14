@@ -279,7 +279,7 @@
                     <button class="start-button">Modul starten</button>
                 </div>
 
-                <div class="module-card" id="module3" onclick="navigateToModule('urheberrecht-praxis.html', 'module3')">
+                <div class="module-card" id="module3" onclick="navigateToModule('interaktiv.html', 'module3')">
                     <span class="module-number">3</span>
                     <h3 class="module-title">Urheberrecht in der Praxis</h3>
                     <p class="module-description">
@@ -312,17 +312,11 @@
         });
 
         function navigateToModule(url, moduleId) {
-            // In a real implementation, this would navigate to the module page
-            // For demo purposes, we'll just mark it as started
+            // Speichere, dass das Modul gestartet wurde
             localStorage.setItem(moduleId + '_started', 'true');
             
-            // Here you would typically navigate to the module
-            alert('Navigation zu ' + url + ' (In der echten Implementierung würde hier die Weiterleitung erfolgen)');
-            
-            // For demo: simulate completion after click
-            setTimeout(() => {
-                markModuleComplete(moduleId);
-            }, 1000);
+            // Navigiere zur Modul-Seite
+            window.location.href = url;
         }
 
         function markModuleComplete(moduleId) {
