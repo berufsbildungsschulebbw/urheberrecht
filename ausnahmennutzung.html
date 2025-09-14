@@ -1,1 +1,652 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ausnahmen und Nutzungsrechte</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #1a1a1a;
+            background: #ffffff;
+        }
+
+        .header {
+            background: #005ca9;
+            color: white;
+            padding: 20px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            font-weight: 600;
+        }
+
+        .breadcrumb {
+            margin-top: 10px;
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .breadcrumb a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        .main-content {
+            padding: 40px 0;
+        }
+
+        .section {
+            margin-bottom: 50px;
+        }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #1a1a1a;
+            border-bottom: 2px solid #005ca9;
+            padding-bottom: 10px;
+        }
+
+        .text-content {
+            font-size: 16px;
+            line-height: 1.8;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .comparison-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 30px 0;
+        }
+
+        .comparison-box {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            padding: 25px;
+            position: relative;
+        }
+
+        .comparison-box.urheberrecht {
+            border-top: 4px solid #005ca9;
+        }
+
+        .comparison-box.nutzungsrecht {
+            border-top: 4px solid #00994d;
+        }
+
+        .comparison-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .comparison-box.urheberrecht .comparison-title {
+            color: #005ca9;
+        }
+
+        .comparison-box.nutzungsrecht .comparison-title {
+            color: #00994d;
+        }
+
+        .comparison-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .comparison-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid #f0f0f0;
+            position: relative;
+            padding-left: 25px;
+        }
+
+        .comparison-list li:last-child {
+            border-bottom: none;
+        }
+
+        .comparison-list li:before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        .comparison-box.urheberrecht .comparison-list li:before {
+            color: #005ca9;
+        }
+
+        .comparison-box.nutzungsrecht .comparison-list li:before {
+            color: #00994d;
+        }
+
+        .exception-cards {
+            display: grid;
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .exception-card {
+            background: #f7f7f7;
+            border-left: 4px solid #005ca9;
+            padding: 20px;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .exception-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #005ca9;
+            margin-bottom: 10px;
+        }
+
+        .exception-description {
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .exception-examples {
+            background: white;
+            padding: 15px;
+            border-radius: 4px;
+            margin-top: 15px;
+        }
+
+        .exception-examples-title {
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .example-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 10px;
+        }
+
+        .example-icon {
+            font-size: 20px;
+            margin-right: 10px;
+            flex-shrink: 0;
+        }
+
+        .example-text {
+            font-size: 14px;
+            color: #555;
+        }
+
+        .interactive-scenario {
+            background: #fff;
+            border: 2px solid #005ca9;
+            border-radius: 4px;
+            padding: 30px;
+            margin: 40px 0;
+        }
+
+        .scenario-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #005ca9;
+        }
+
+        .scenario-case {
+            background: #f0f7ff;
+            padding: 20px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+
+        .scenario-question {
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .scenario-options {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .scenario-btn {
+            flex: 1;
+            padding: 10px;
+            border: 2px solid #005ca9;
+            background: white;
+            color: #005ca9;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .scenario-btn:hover {
+            background: #005ca9;
+            color: white;
+        }
+
+        .scenario-btn.selected {
+            background: #005ca9;
+            color: white;
+        }
+
+        .scenario-result {
+            padding: 15px;
+            border-radius: 4px;
+            margin-top: 15px;
+            display: none;
+        }
+
+        .scenario-result.show {
+            display: block;
+        }
+
+        .scenario-result.correct {
+            background: #e6f7e6;
+            color: #00994d;
+            border: 1px solid #00994d;
+        }
+
+        .scenario-result.incorrect {
+            background: #ffe6e6;
+            color: #dc3545;
+            border: 1px solid #dc3545;
+        }
+
+        .license-types {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .license-card {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .license-card:hover {
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .license-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .license-icon {
+            font-size: 30px;
+            margin-right: 15px;
+        }
+
+        .license-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1a1a1a;
+        }
+
+        .license-description {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .nav-button {
+            background: #005ca9;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: background 0.3s ease;
+        }
+
+        .nav-button:hover {
+            background: #004a87;
+        }
+
+        .nav-button.complete {
+            background: #00994d;
+        }
+
+        .nav-button.complete:hover {
+            background: #007a3d;
+        }
+
+        @media (max-width: 768px) {
+            .comparison-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .scenario-options {
+                flex-direction: column;
+            }
+            
+            .license-types {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="container">
+            <h1>Ausnahmen und Nutzungsrechte</h1>
+            <div class="breadcrumb">
+                <a href="index.html">Startseite</a> / Modul 2: Ausnahmen und Nutzungsrechte
+            </div>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="container">
+            <section class="section">
+                <h2 class="section-title">Urheberrecht vs. Nutzungsrecht</h2>
+                
+                <p class="text-content">
+                    Ein fundamentaler Unterschied im Urheberrecht ist die Trennung zwischen dem Urheberrecht selbst und den Nutzungsrechten. Diese Unterscheidung ist für die Praxis von entscheidender Bedeutung.
+                </p>
+
+                <div class="comparison-container">
+                    <div class="comparison-box urheberrecht">
+                        <h3 class="comparison-title">Urheberrecht</h3>
+                        <ul class="comparison-list">
+                            <li>Entsteht automatisch mit der Werkschöpfung</li>
+                            <li>Liegt immer beim Urheber (Schöpfer)</li>
+                            <li>Ist nicht übertragbar (in der Schweiz)</li>
+                            <li>Besteht bis 70 Jahre nach Tod des Urhebers</li>
+                            <li>Umfasst Persönlichkeitsrechte</li>
+                            <li>Urheber bleibt immer Urheber</li>
+                        </ul>
+                    </div>
+
+                    <div class="comparison-box nutzungsrecht">
+                        <h3 class="comparison-title">Nutzungsrecht</h3>
+                        <ul class="comparison-list">
+                            <li>Kann vom Urheber eingeräumt werden</li>
+                            <li>Ist übertragbar und handelbar</li>
+                            <li>Kann zeitlich/räumlich begrenzt werden</li>
+                            <li>Kann exklusiv oder nicht-exklusiv sein</li>
+                            <li>Wird durch Lizenzen geregelt</li>
+                            <li>Verschiedene Arten möglich</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2 class="section-title">Gesetzliche Ausnahmen (Schranken)</h2>
+                
+                <p class="text-content">
+                    Das Urheberrecht kennt wichtige Ausnahmen, die eine Nutzung ohne Zustimmung des Urhebers erlauben. Diese Schranken dienen dem Ausgleich zwischen den Interessen der Urheber und der Allgemeinheit.
+                </p>
+
+                <div class="exception-cards">
+                    <div class="exception-card">
+                        <h3 class="exception-title">Privatgebrauch</h3>
+                        <p class="exception-description">
+                            Werke dürfen für den persönlichen Bereich und im Kreis eng verbundener Personen (Familie, Freunde) verwendet werden.
+                        </p>
+                        <div class="exception-examples">
+                            <div class="exception-examples-title">Praktische Beispiele</div>
+                            <div class="example-item">
+                                <span class="example-icon">✓</span>
+                                <span class="example-text">Musik-CD für die private Autofahrt kopieren</span>
+                            </div>
+                            <div class="example-item">
+                                <span class="example-icon">✓</span>
+                                <span class="example-text">Zeitungsartikel für die Familie ausdrucken</span>
+                            </div>
+                            <div class="example-item">
+                                <span class="example-icon">✗</span>
+                                <span class="example-text">Kopien an Arbeitskollegen verteilen (zu weiter Kreis)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="exception-card">
+                        <h3 class="exception-title">Schulgebrauch</h3>
+                        <p class="exception-description">
+                            Lehrpersonen dürfen urheberrechtlich geschützte Werke für den Unterricht in der Klasse verwenden.
+                        </p>
+                        <div class="exception-examples">
+                            <div class="exception-examples-title">Praktische Beispiele</div>
+                            <div class="example-item">
+                                <span class="example-icon">✓</span>
+                                <span class="example-text">Filmausschnitt im Geschichtsunterricht zeigen</span>
+                            </div>
+                            <div class="example-item">
+                                <span class="example-icon">✓</span>
+                                <span class="example-text">Buchkapitel für Schüler kopieren</span>
+                            </div>
+                            <div class="example-item">
+                                <span class="example-icon">✗</span>
+                                <span class="example-text">Kopien auf Schulwebsite veröffentlichen</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="exception-card">
+                        <h3 class="exception-title">Zitatrecht</h3>
+                        <p class="exception-description">
+                            Veröffentlichte Werke dürfen zitiert werden, wenn das Zitat zur Erläuterung, als Hinweis oder zur Veranschaulichung dient und als solches gekennzeichnet wird.
+                        </p>
+                        <div class="exception-examples">
+                            <div class="exception-examples-title">Praktische Beispiele</div>
+                            <div class="example-item">
+                                <span class="example-icon">✓</span>
+                                <span class="example-text">Textpassage in wissenschaftlicher Arbeit mit Quellenangabe</span>
+                            </div>
+                            <div class="example-item">
+                                <span class="example-icon">✓</span>
+                                <span class="example-text">Kurzer Ausschnitt aus Lied in Musikanalyse</span>
+                            </div>
+                            <div class="example-item">
+                                <span class="example-icon">✗</span>
+                                <span class="example-text">Ganzes Kapitel ohne eigene Leistung übernehmen</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="exception-card">
+                        <h3 class="exception-title">Panoramafreiheit</h3>
+                        <p class="exception-description">
+                            Werke, die sich bleibend auf öffentlichem Grund befinden, dürfen abgebildet werden. Die Abbildungen dürfen veröffentlicht und verkauft werden.
+                        </p>
+                        <div class="exception-examples">
+                            <div class="exception-examples-title">Praktische Beispiele</div>
+                            <div class="example-item">
+                                <span class="example-icon">✓</span>
+                                <span class="example-text">Foto vom Bundeshaus für Postkarte verwenden</span>
+                            </div>
+                            <div class="example-item">
+                                <span class="example-icon">✓</span>
+                                <span class="example-text">Statue im Park fotografieren und online stellen</span>
+                            </div>
+                            <div class="example-item">
+                                <span class="example-icon">✗</span>
+                                <span class="example-text">Temporäre Kunstinstallation nach Abbau verwenden</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2 class="section-title">Arten von Lizenzen</h2>
+                
+                <div class="license-types">
+                    <div class="license-card">
+                        <div class="license-header">
+                            <span class="license-icon">📝</span>
+                            <span class="license-name">Einfache Lizenz</span>
+                        </div>
+                        <p class="license-description">
+                            Der Urheber räumt Nutzungsrechte ein, kann diese aber auch anderen erteilen. Mehrere Personen können gleichzeitig dasselbe Recht haben.
+                        </p>
+                    </div>
+
+                    <div class="license-card">
+                        <div class="license-header">
+                            <span class="license-icon">🔒</span>
+                            <span class="license-name">Exklusive Lizenz</span>
+                        </div>
+                        <p class="license-description">
+                            Nur der Lizenznehmer erhält das Nutzungsrecht. Selbst der Urheber darf das Werk nicht mehr in dieser Weise nutzen.
+                        </p>
+                    </div>
+
+                    <div class="license-card">
+                        <div class="license-header">
+                            <span class="license-icon">🌍</span>
+                            <span class="license-name">Creative Commons</span>
+                        </div>
+                        <p class="license-description">
+                            Standardisierte Lizenzen, die verschiedene Nutzungen erlauben (z.B. CC BY: Namensnennung erforderlich, sonst freie Nutzung).
+                        </p>
+                    </div>
+
+                    <div class="license-card">
+                        <div class="license-header">
+                            <span class="license-icon">💼</span>
+                            <span class="license-name">Werkvertrag</span>
+                        </div>
+                        <p class="license-description">
+                            Bei Auftragsarbeiten: Rechte können vertraglich an Auftraggeber übertragen werden (z.B. Logo-Design für Firma).
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section">
+                <div class="interactive-scenario">
+                    <h3 class="scenario-title">Praxisszenario: Testen Sie Ihr Wissen</h3>
+                    
+                    <div class="scenario-case">
+                        <p class="scenario-question">
+                            Sie sind Grafikdesigner und erstellen ein Logo für einen Kunden. Der Kunde möchte das Logo exklusiv für seine Firma nutzen. Was ist die beste Lösung?
+                        </p>
+                        <div class="scenario-options">
+                            <button class="scenario-btn" onclick="checkScenario(this, 'a', 1)">
+                                Urheberrecht übertragen
+                            </button>
+                            <button class="scenario-btn" onclick="checkScenario(this, 'b', 1)">
+                                Exklusive Lizenz erteilen
+                            </button>
+                            <button class="scenario-btn" onclick="checkScenario(this, 'c', 1)">
+                                Einfache Lizenz erteilen
+                            </button>
+                        </div>
+                        <div class="scenario-result" id="result1"></div>
+                    </div>
+
+                    <div class="scenario-case">
+                        <p class="scenario-question">
+                            Ein Lehrer möchte einen Dokumentarfilm vollständig im Unterricht zeigen und Ausschnitte davon auf die Schulplattform hochladen. Was ist erlaubt?
+                        </p>
+                        <div class="scenario-options">
+                            <button class="scenario-btn" onclick="checkScenario(this, 'a', 2)">
+                                Beides ist erlaubt
+                            </button>
+                            <button class="scenario-btn" onclick="checkScenario(this, 'b', 2)">
+                                Nur Zeigen im Unterricht
+                            </button>
+                            <button class="scenario-btn" onclick="checkScenario(this, 'c', 2)">
+                                Nichts davon
+                            </button>
+                        </div>
+                        <div class="scenario-result" id="result2"></div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="navigation-buttons">
+                <a href="urheberrecht-basics.html" class="nav-button">← Zurück zu Modul 1</a>
+                <button class="nav-button complete" onclick="completeModule()">Modul abschliessen →</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function checkScenario(btn, answer, scenario) {
+            // Remove previous selections
+            const buttons = btn.parentElement.querySelectorAll('.scenario-btn');
+            buttons.forEach(b => b.classList.remove('selected'));
+            btn.classList.add('selected');
+            
+            const resultDiv = document.getElementById('result' + scenario);
+            
+            if (scenario === 1) {
+                if (answer === 'b') {
+                    resultDiv.className = 'scenario-result show correct';
+                    resultDiv.innerHTML = '<strong>Richtig!</strong> Eine exklusive Lizenz ist die beste Lösung. Das Urheberrecht kann in der Schweiz nicht übertragen werden (Sie bleiben Urheber), aber mit einer exklusiven Lizenz erhält der Kunde das alleinige Nutzungsrecht.';
+                } else if (answer === 'a') {
+                    resultDiv.className = 'scenario-result show incorrect';
+                    resultDiv.innerHTML = '<strong>Nicht möglich!</strong> In der Schweiz kann das Urheberrecht nicht übertragen werden. Sie bleiben immer der Urheber Ihres Werks. Stattdessen können Sie exklusive Nutzungsrechte einräumen.';
+                } else {
+                    resultDiv.className = 'scenario-result show incorrect';
+                    resultDiv.innerHTML = '<strong>Nicht optimal!</strong> Bei einer einfachen Lizenz könnten Sie das Logo auch anderen Kunden anbieten. Für Exklusivität benötigt der Kunde eine exklusive Lizenz.';
+                }
+            } else if (scenario === 2) {
+                if (answer === 'b') {
+                    resultDiv.className = 'scenario-result show correct';
+                    resultDiv.innerHTML = '<strong>Korrekt!</strong> Der Schulgebrauch erlaubt das Zeigen des Films im Unterricht. Das Hochladen auf eine Plattform (auch schulintern) ist jedoch eine Veröffentlichung und nicht mehr durch die Schranke gedeckt.';
+                } else if (answer === 'a') {
+                    resultDiv.className = 'scenario-result show incorrect';
+                    resultDiv.innerHTML = '<strong>Vorsicht!</strong> Nur das Zeigen im Unterricht ist erlaubt. Das Hochladen auf eine Plattform gilt als Veröffentlichung und benötigt eine Lizenz.';
+                } else {
+                    resultDiv.className = 'scenario-result show incorrect';
+                    resultDiv.innerHTML = '<strong>Nicht ganz!</strong> Das Zeigen im Unterricht ist durch die Schulgebrauch-Schranke erlaubt. Nur das Hochladen ist problematisch.';
+                }
+            }
+        }
+
+        function completeModule() {
+            localStorage.setItem('module2_completed', 'true');
+            alert('Modul erfolgreich abgeschlossen!');
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>
